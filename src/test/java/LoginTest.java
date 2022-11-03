@@ -42,10 +42,10 @@ public class LoginTest {
 
         //write email and password
         WebElement emailTextBox = driver.findElement(By.id("login-email"));
-        emailTextBox.sendKeys("automatedbuyer-3cd5ab6d-4089-48d1-89a1-dddd722cc732@trendyol.com");
+        emailTextBox.sendKeys("Asddasdaasd@Dasd.com");
 
         WebElement passwordTextBox = driver.findElement(By.id("login-password-input"));
-        passwordTextBox.sendKeys("1234567a");
+        passwordTextBox.sendKeys("1234qwe");
 
         //click login button
         WebElement loginButton = driver.findElement(By.className("submit"));
