@@ -24,6 +24,7 @@ public class LoginTest {
         options.addArguments("disable-translation");
         options.addArguments("disable-automatic-password-saving");
         WebDriver driver = new ChromeDriver(options);
+        WebDriverWait Wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
         //go to trendyol
         driver.get("https://www.trendyol.com");
@@ -51,13 +52,15 @@ public class LoginTest {
         WebElement loginButton = driver.findElement(By.className("submit"));
         loginButton.click();
 
-        Thread.sleep(2000);
         //*
         // Waits until ...
         // ImplicitWait
         // ExplicitWait
         // FluentWait
         // **/
+        
+        //wait until URL changes to https://www.trendyol.com/butik/liste/2/erkek
+        Wait.until(ExpectedConditions.urlToBe("https://www.trendyol.com/butik/liste/2/erkek"));
 
         //redirect to homepage --> assertion
         currentUrl = driver.getCurrentUrl();
