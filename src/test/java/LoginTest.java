@@ -1,74 +1,57 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.Assert;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Test;
 
-public class LoginTest {
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
+public class LoginTest extends TestBase {
 
     @Test
-    public void testLogin() throws InterruptedException {
+    public void testLogin() {
         /*
-        * 1- Set the data or provide the data
-        * 2- Actions
-        * 3- Assertion
-        * */
+         * 1- Set the data or provide the data
+         * 2- Actions
+         * 3- Assertion
+         * */
+        goToLoginPage();
 
-        //opens the browser
-        System.setProperty("webdriver.chrome.driver", "/Users/taylan.derinbay/Downloads/chromedriver");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-notifications");
-        options.addArguments("disable-popup-blocking");
-        options.addArguments("disable-translation");
-        options.addArguments("disable-automatic-password-saving");
-        WebDriver driver = new ChromeDriver(options);
-        WebDriverWait Wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-
-        //go to trendyol
-        driver.get("https://www.trendyol.com");
-
-        //close gender popup or select a gender
-        WebElement closeModalButton = driver.findElement(By.className("modal-close"));
-        closeModalButton.click();
-
-        //clicks login button
-        WebElement loginElement = driver.findElement(By.className("user-login-container"));
-        loginElement.click();
-
-        //checks login page
         String currentUrl = driver.getCurrentUrl();
-        Assert.assertEquals(currentUrl, "https://www.trendyol.com/giris?cb=https%3A%2F%2Fwww.trendyol.com%2F");
+        assertEquals(currentUrl, "https://www.trendyol.com/giris?cb=https%3A%2F%2Fwww.trendyol.com%2F");
 
-        //write email and password
-        WebElement emailTextBox = driver.findElement(By.id("login-email"));
-        emailTextBox.sendKeys("Asddasdaasd@Dasd.com");
+        login("Asddasdaasd@Dasd.com", "1234qwe");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("circled-slider")));
 
-        WebElement passwordTextBox = driver.findElement(By.id("login-password-input"));
-        passwordTextBox.sendKeys("1234qwe");
-
-        //click login button
-        WebElement loginButton = driver.findElement(By.className("submit"));
-        loginButton.click();
-
-        //*
-        // Waits until ...
-        // ImplicitWait
-        // ExplicitWait
-        // FluentWait
-        // **/
-        
-        //wait until URL changes to https://www.trendyol.com/butik/liste/2/erkek
-        Wait.until(ExpectedConditions.urlToBe("https://www.trendyol.com/butik/liste/2/erkek"));
-
-        //redirect to homepage --> assertion
         currentUrl = driver.getCurrentUrl();
-        Assert.assertEquals(currentUrl, "https://www.trendyol.com/butik/liste/2/erkek");
-
-        //check homepage gender
-        Assert.assertTrue(currentUrl.contains("erkek"));
-
-        driver.quit();
+        assertEquals(currentUrl, "https://www.trendyol.com/butik/liste/1/kadin");
+        assertTrue(currentUrl.contains("kadin"));
     }
+
+    @Test
+    public void testFailedLogin() {
+        goToLoginPage();
+
+        String currentUrl = driver.getCurrentUrl();
+        assertEquals(currentUrl, "https://www.trendyol.com/giris?cb=https%3A%2F%2Fwww.trendyol.com%2F");
+
+        login("Asddasdaasd@Dasd.com", "1234qwedasg");
+
+        String warningText = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("error-box-wrapper"))).getText();
+        assertEquals(warningText, "E-posta adresiniz ve/veya şifreniz hatalı.");
+    }
+
+    private void goToLoginPage() {
+        driver.findElement(By.className("modal-close")).click();
+        driver.findElement(By.className("user-login-container")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("login-register")));
+    }
+
+    private void login(String email, String password) {
+        driver.findElement(By.id("login-email")).sendKeys(email);
+        driver.findElement(By.id("login-password-input")).sendKeys(password);
+        driver.findElement(By.className("submit")).click();
+    }
+
+    //Page object model
+    //HomePage, LoginPage, SearchPage
 }
