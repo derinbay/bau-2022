@@ -1,3 +1,4 @@
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -23,10 +24,15 @@ public class TestBase {
         driver = new ChromeDriver(options);
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         driver.get("https://www.trendyol.com");
+        closeModal();
     }
 
     @AfterMethod
     public void tearDown() {
         driver.quit();
+    }
+
+    private void closeModal() {
+        driver.findElement(By.className("modal-close")).click();
     }
 }
