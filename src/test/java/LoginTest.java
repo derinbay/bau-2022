@@ -1,16 +1,12 @@
-import DataHelper.UserPool;
 import models.User;
 import org.openqa.selenium.By;
-import org.openqa.selenium.bidi.log.Log;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
 
-import static DataHelper.UserPool.failUser;
-import static DataHelper.UserPool.validUser;
+import static DataHelper.UserPool.*;
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 public class LoginTest extends TestBase {
 
@@ -41,13 +37,23 @@ public class LoginTest extends TestBase {
         HomePage homePage = new HomePage(driver, wait);
         homePage.goToLoginPage();
 
-        String currentUrl = driver.getCurrentUrl();
-        assertEquals(currentUrl, "https://www.trendyol.com/giris?cb=https%3A%2F%2Fwww.trendyol.com%2F");
-
         LoginPage loginPage = new LoginPage(driver, wait);
         loginPage.login(user);
 
         String warningText = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("error-box-wrapper"))).getText();
         assertEquals(warningText, "E-posta adresiniz ve/veya şifreniz hatalı.");
+    }
+
+    @Test
+    public void testEmptyPassword() {
+        User user = failUserWithoutPassword();
+        HomePage homePage = new HomePage(driver, wait);
+        homePage.goToLoginPage();
+
+        LoginPage loginPage = new LoginPage(driver, wait);
+        loginPage.login(user);
+
+        String warningText = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("error-box-wrapper"))).getText();
+        assertEquals(warningText, "Lütfen şifrenizi giriniz.");
     }
 }

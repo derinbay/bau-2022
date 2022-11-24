@@ -12,4 +12,8 @@ public class UserPool {
     public static User failUser() {
         return new User("Asddasdaasd@Dasd.com", "1234qwedas");
     }
+
+    public static User failUserWithoutPassword() {
+        return new User("Asddasdaasd@Dasd.com", "");
+    }
 }
