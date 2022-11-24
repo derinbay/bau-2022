@@ -16,7 +16,7 @@ public class TestBase {
 
     @BeforeMethod
     public void startUp() {
-        WebDriverManager.firefoxdriver().setup();
+        WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-notifications");
         options.addArguments("disable-popup-blocking");
