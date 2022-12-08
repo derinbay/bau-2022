@@ -29,4 +29,16 @@ public class PageBase {
         wait.until(ExpectedConditions.elementToBeClickable(elementToClick))
                 .click();
     }
+
+    public void waitForPageLoad(By elementToCheck) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(elementToCheck));
+    }
+    public String getCurrentUrl() {
+        return driver.getCurrentUrl();
+    }
+
+    public String getText(By elementToGetText) {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(elementToGetText))
+                .getText();
+    }
 }

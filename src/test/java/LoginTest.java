@@ -1,12 +1,11 @@
 import models.User;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
 
 import static DataHelper.UserPool.*;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class LoginTest extends TestBase {
 
@@ -15,20 +14,21 @@ public class LoginTest extends TestBase {
      * 2- Actions
      * 3- Assertion
      * */
+
     @Test
     public void testLogin() {
         User user = validUser();
         HomePage homePage = new HomePage(driver, wait);
         LoginPage loginPage = homePage.goToLoginPage();
 
-        String currentUrl = driver.getCurrentUrl();
-        assertEquals(currentUrl, "https://www.trendyol.com/giris?cb=https%3A%2F%2Fwww.trendyol.com%2F");
+        String currentUrl = loginPage.getCurrentUrl();
+        assertEquals(currentUrl, loginPage.getUrl());
 
         homePage = loginPage.login(user);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("circled-slider")));
+        homePage.waitForPageLoad(homePage.getCircledSlider());
 
-        currentUrl = driver.getCurrentUrl();
-        assertEquals(currentUrl, "https://www.trendyol.com/butik/liste/1/kadin");
+        currentUrl = homePage.getCurrentUrl();
+        assertEquals(currentUrl, homePage.getUrl());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class LoginTest extends TestBase {
         LoginPage loginPage = new LoginPage(driver, wait);
         loginPage.login(user);
 
-        String warningText = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("error-box-wrapper"))).getText();
+        String warningText = loginPage.getText(loginPage.getErrorBoxWrapper());
         assertEquals(warningText, "E-posta adresiniz ve/veya şifreniz hatalı.");
     }
 
@@ -53,7 +53,7 @@ public class LoginTest extends TestBase {
         LoginPage loginPage = new LoginPage(driver, wait);
         loginPage.login(user);
 
-        String warningText = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("error-box-wrapper"))).getText();
+        String warningText = loginPage.getText(loginPage.getErrorBoxWrapper());
         assertEquals(warningText, "Lütfen şifrenizi giriniz.");
     }
 }
