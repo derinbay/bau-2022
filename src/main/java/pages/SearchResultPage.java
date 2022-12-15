@@ -36,4 +36,12 @@ public class SearchResultPage extends PageBase {
                 .map(WebElement::getText)
                 .collect(Collectors.toList());
     }
+
+    public String getDataId(WebElement element) {
+        return element.getAttribute("data-id");
+    }
+
+    public WebElement getProduct(int index) {
+        return getProducts().get(index);
+    }
 }

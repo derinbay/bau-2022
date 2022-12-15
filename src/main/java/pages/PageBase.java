@@ -7,6 +7,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.openqa.selenium.Keys.PAGE_DOWN;
 
 public class PageBase {
@@ -33,6 +36,11 @@ public class PageBase {
                 .click();
     }
 
+    public void click(WebElement webElementToClick) {
+        wait.until(ExpectedConditions.elementToBeClickable(webElementToClick))
+                .click();
+    }
+
     public void waitForPageLoad(By elementToCheck) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(elementToCheck));
     }
@@ -47,5 +55,10 @@ public class PageBase {
 
     public void pageDown() {
         sendKeys(By.tagName("body"), String.valueOf(PAGE_DOWN));
+    }
+
+    public void switchNextTab() {
+        List<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(1));
     }
 }

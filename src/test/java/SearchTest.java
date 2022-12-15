@@ -1,10 +1,7 @@
-import org.hamcrest.Matchers;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.HomePage;
+import pages.ProductPage;
 import pages.SearchResultPage;
 
 import java.util.List;
@@ -25,11 +22,18 @@ public class SearchTest extends TestBase {
         List<String> productNames = searchResultPage.productNames();
         assertThat(productNames, (everyItem(containsStringIgnoringCase("iphone"))));
 
-        //get data id of product
-        //click product
-        //check new page url includes data-id
+        WebElement firstProduct = searchResultPage.getProduct(0);
+        String firstProductId = searchResultPage.getDataId(firstProduct);
+        searchResultPage.click(firstProduct);
+        searchResultPage.switchNextTab();
 
-        //nth product, i clicked -> check navigate to another page. product page
-        //check if it opened the correct product
+        ProductPage productPage = new ProductPage(driver, wait);
+        String pageProductTitle = productPage.getProductTitle();
+
+        assertThat(pageProductTitle, is(equalTo(productNames.get(0))));
+        assertThat(productPage.getCurrentUrl(), containsString(firstProductId));
     }
+
+    //run all tests in parallel
+    //keyword to check: testng
 }
