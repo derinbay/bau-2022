@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 public class PageBase {
 
     WebDriver driver;
@@ -30,6 +32,11 @@ public class PageBase {
                 .click();
     }
 
+    public void click(WebElement elementToClick) {
+        wait.until(ExpectedConditions.elementToBeClickable(elementToClick))
+                .click();
+    }
+
     public void waitForPageLoad(By elementToCheck) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(elementToCheck));
     }
@@ -40,5 +47,9 @@ public class PageBase {
     public String getText(By elementToGetText) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(elementToGetText))
                 .getText();
+    }
+
+    public List<WebElement> getElements(By elementsToGet){
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(elementsToGet)).findElements(elementsToGet);
     }
 }
