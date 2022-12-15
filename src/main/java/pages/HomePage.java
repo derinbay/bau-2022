@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static org.openqa.selenium.Keys.ENTER;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 @Getter
@@ -30,7 +31,8 @@ public class HomePage extends PageBase {
         return new LoginPage(driver, wait);
     }
 
-    public void search(String keyword) {
-        sendKeys(searchBar, keyword + Keys.ENTER);
+    public SearchResultPage search(String keyword) {
+        sendKeys(searchBar, keyword + ENTER);
+        return new SearchResultPage(driver, wait);
     }
 }

@@ -1,10 +1,13 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static org.openqa.selenium.Keys.PAGE_DOWN;
 
 public class PageBase {
 
@@ -40,5 +43,9 @@ public class PageBase {
     public String getText(By elementToGetText) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(elementToGetText))
                 .getText();
+    }
+
+    public void pageDown() {
+        sendKeys(By.tagName("body"), String.valueOf(PAGE_DOWN));
     }
 }
