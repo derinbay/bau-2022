@@ -13,7 +13,7 @@ public class SearchTest extends TestBase {
 
     @Test
     public void testSearch() {
-        HomePage homePage = new HomePage(driver, wait);
+        HomePage homePage = new HomePage(getDriver(), getWait());
         SearchResultPage searchResultPage = homePage.search("iphone");
 
         searchResultPage.pageDown();
@@ -27,7 +27,7 @@ public class SearchTest extends TestBase {
         searchResultPage.click(firstProduct);
         searchResultPage.switchNextTab();
 
-        ProductPage productPage = new ProductPage(driver, wait);
+        ProductPage productPage = new ProductPage(getDriver(), getWait());
         String pageProductTitle = productPage.getProductTitle();
 
         assertThat(pageProductTitle, is(equalTo(productNames.get(0))));

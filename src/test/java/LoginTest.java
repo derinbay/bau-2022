@@ -18,7 +18,7 @@ public class LoginTest extends TestBase {
     @Test
     public void testLogin() {
         User user = validUser();
-        HomePage homePage = new HomePage(driver, wait);
+        HomePage homePage = new HomePage(getDriver(), getWait());
         LoginPage loginPage = homePage.goToLoginPage();
 
         String currentUrl = loginPage.getCurrentUrl();
@@ -34,10 +34,10 @@ public class LoginTest extends TestBase {
     @Test
     public void testFailedLogin() {
         User user = failUser();
-        HomePage homePage = new HomePage(driver, wait);
+        HomePage homePage = new HomePage(getDriver(), getWait());
         homePage.goToLoginPage();
 
-        LoginPage loginPage = new LoginPage(driver, wait);
+        LoginPage loginPage = new LoginPage(getDriver(), getWait());
         loginPage.login(user);
 
         String warningText = loginPage.getText(loginPage.getErrorBoxWrapper());
@@ -47,10 +47,10 @@ public class LoginTest extends TestBase {
     @Test
     public void testEmptyPassword() {
         User user = failUserWithoutPassword();
-        HomePage homePage = new HomePage(driver, wait);
+        HomePage homePage = new HomePage(getDriver(), getWait());
         homePage.goToLoginPage();
 
-        LoginPage loginPage = new LoginPage(driver, wait);
+        LoginPage loginPage = new LoginPage(getDriver(), getWait());
         loginPage.login(user);
 
         String warningText = loginPage.getText(loginPage.getErrorBoxWrapper());

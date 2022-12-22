@@ -11,8 +11,17 @@ import java.time.Duration;
 
 public class TestBase {
 
-    WebDriver driver;
-    WebDriverWait wait;
+    ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+
+    ThreadLocal<WebDriverWait> wait = new ThreadLocal<>();
+
+    public WebDriver getDriver() {
+        return driver.get();
+    }
+
+    public WebDriverWait getWait() {
+        return wait.get();
+    }
 
     @BeforeMethod
     public void startUp() {
@@ -22,18 +31,18 @@ public class TestBase {
         options.addArguments("disable-popup-blocking");
         options.addArguments("disable-translation");
         options.addArguments("disable-automatic-password-saving");
-        driver = new ChromeDriver(options);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        driver.get("https://www.trendyol.com");
+        driver.set(new ChromeDriver(options));
+        wait.set(new WebDriverWait(getDriver(), Duration.ofSeconds(20)));
+        getDriver().get("https://www.trendyol.com");
         closeModal();
     }
 
     @AfterMethod
     public void tearDown() {
-        driver.quit();
+        getDriver().quit();
     }
 
     private void closeModal() {
-        driver.findElement(By.className("modal-close")).click();
+        getDriver().findElement(By.className("modal-close")).click();
     }
 }
