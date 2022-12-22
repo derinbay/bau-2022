@@ -17,6 +17,7 @@ public class LoginTest extends TestBase {
 
     @Test
     public void testLogin() {
+        System.out.println("The thread ID for"+ Thread.currentThread().getStackTrace()[1].getMethodName() + "thread is "+ Thread.currentThread().getId());
         User user = validUser();
         HomePage homePage = new HomePage(driver, wait);
         LoginPage loginPage = homePage.goToLoginPage();
@@ -33,6 +34,7 @@ public class LoginTest extends TestBase {
 
     @Test
     public void testFailedLogin() {
+        System.out.println("The thread ID for"+ Thread.currentThread().getStackTrace()[1].getMethodName() + "thread is "+ Thread.currentThread().getId());
         User user = failUser();
         HomePage homePage = new HomePage(driver, wait);
         homePage.goToLoginPage();
@@ -46,6 +48,7 @@ public class LoginTest extends TestBase {
 
     @Test
     public void testEmptyPassword() {
+        System.out.println("The thread ID for"+ Thread.currentThread().getStackTrace()[1].getMethodName() + "thread is "+ Thread.currentThread().getId());
         User user = failUserWithoutPassword();
         HomePage homePage = new HomePage(driver, wait);
         homePage.goToLoginPage();

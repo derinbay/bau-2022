@@ -13,6 +13,7 @@ public class SearchTest extends TestBase {
 
     @Test
     public void testSearch() {
+        System.out.println("The thread ID for"+ Thread.currentThread().getStackTrace()[1].getMethodName() + "thread is "+ Thread.currentThread().getId());
         HomePage homePage = new HomePage(driver, wait);
         SearchResultPage searchResultPage = homePage.search("iphone");
 
