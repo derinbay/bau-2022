@@ -1,3 +1,5 @@
+package bases;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,15 +13,15 @@ import java.time.Duration;
 
 public class TestBase {
 
-    ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+    public static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
-    ThreadLocal<WebDriverWait> wait = new ThreadLocal<>();
+    public static ThreadLocal<WebDriverWait> wait = new ThreadLocal<>();
 
-    public WebDriver getDriver() {
+    public static WebDriver getDriver() {
         return driver.get();
     }
 
-    public WebDriverWait getWait() {
+    public static WebDriverWait getWait() {
         return wait.get();
     }
 

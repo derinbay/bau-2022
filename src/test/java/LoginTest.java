@@ -1,3 +1,4 @@
+import bases.TestBase;
 import models.User;
 import org.testng.annotations.Test;
 import pages.HomePage;
@@ -18,7 +19,7 @@ public class LoginTest extends TestBase {
     @Test
     public void testLogin() {
         User user = validUser();
-        HomePage homePage = new HomePage(getDriver(), getWait());
+        HomePage homePage = new HomePage();
         LoginPage loginPage = homePage.goToLoginPage();
 
         String currentUrl = loginPage.getCurrentUrl();
@@ -34,10 +35,10 @@ public class LoginTest extends TestBase {
     @Test
     public void testFailedLogin() {
         User user = failUser();
-        HomePage homePage = new HomePage(getDriver(), getWait());
+        HomePage homePage = new HomePage();
         homePage.goToLoginPage();
 
-        LoginPage loginPage = new LoginPage(getDriver(), getWait());
+        LoginPage loginPage = new LoginPage();
         loginPage.login(user);
 
         String warningText = loginPage.getText(loginPage.getErrorBoxWrapper());
@@ -47,10 +48,10 @@ public class LoginTest extends TestBase {
     @Test
     public void testEmptyPassword() {
         User user = failUserWithoutPassword();
-        HomePage homePage = new HomePage(getDriver(), getWait());
+        HomePage homePage = new HomePage();
         homePage.goToLoginPage();
 
-        LoginPage loginPage = new LoginPage(getDriver(), getWait());
+        LoginPage loginPage = new LoginPage();
         loginPage.login(user);
 
         String warningText = loginPage.getText(loginPage.getErrorBoxWrapper());

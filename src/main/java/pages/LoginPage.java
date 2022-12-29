@@ -1,10 +1,9 @@
 package pages;
 
+import bases.PageBase;
 import lombok.Getter;
 import models.User;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 @Getter
 public class LoginPage extends PageBase {
@@ -16,8 +15,7 @@ public class LoginPage extends PageBase {
     By loginPasswordTextBox = By.id("login-password-input");
     By submitButton = By.className("submit");
 
-    public LoginPage(WebDriver driver, WebDriverWait wait) {
-        super(driver, wait);
+    public LoginPage() {
     }
 
     public HomePage login(User user) {
@@ -25,6 +23,6 @@ public class LoginPage extends PageBase {
         sendKeys(loginPasswordTextBox, user.getPassword());
         click(submitButton);
 
-        return new HomePage(driver, wait);
+        return new HomePage();
     }
 }

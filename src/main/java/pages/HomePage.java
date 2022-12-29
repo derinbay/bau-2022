@@ -1,13 +1,10 @@
 package pages;
 
+import bases.PageBase;
 import lombok.Getter;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static bases.TestBase.getWait;
 import static org.openqa.selenium.Keys.ENTER;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
@@ -20,19 +17,18 @@ public class HomePage extends PageBase {
 
     By searchBar = By.cssSelector("[data-testid=suggestion]");
 
-    public HomePage(WebDriver driver, WebDriverWait wait) {
-        super(driver, wait);
+    public HomePage() {
     }
 
     public LoginPage goToLoginPage() {
         click(userLoginContainer);
-        wait.until(visibilityOfElementLocated(By.id("login-register")));
+        getWait().until(visibilityOfElementLocated(By.id("login-register")));
 
-        return new LoginPage(driver, wait);
+        return new LoginPage();
     }
 
     public SearchResultPage search(String keyword) {
         sendKeys(searchBar, keyword + ENTER);
-        return new SearchResultPage(driver, wait);
+        return new SearchResultPage();
     }
 }

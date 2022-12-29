@@ -1,13 +1,11 @@
 package pages;
 
+import bases.PageBase;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProductPage extends PageBase {
 
-    public ProductPage(WebDriver driver, WebDriverWait wait) {
-        super(driver, wait);
+    public ProductPage() {
     }
 
     public String getProductTitle() {

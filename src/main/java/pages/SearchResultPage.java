@@ -1,20 +1,18 @@
 package pages;
 
-import com.beust.ah.A;
+import bases.PageBase;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static bases.TestBase.getWait;
+
 public class SearchResultPage extends PageBase {
 
-    public SearchResultPage(WebDriver driver, WebDriverWait wait) {
-        super(driver, wait);
+    public SearchResultPage() {
     }
 
     public void closeOverlay() {
@@ -22,11 +20,11 @@ public class SearchResultPage extends PageBase {
     }
 
     public List<WebElement> getProducts() {
-        return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("p-card-wrppr")));
+        return getWait().until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("p-card-wrppr")));
     }
 
     public List<WebElement> getProducts(By element) {
-        return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(element));
+        return getWait().until(ExpectedConditions.visibilityOfAllElementsLocatedBy(element));
     }
 
     public List<String> productNames() {

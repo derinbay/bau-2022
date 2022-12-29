@@ -1,3 +1,4 @@
+import bases.TestBase;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 import pages.HomePage;
@@ -13,7 +14,7 @@ public class SearchTest extends TestBase {
 
     @Test
     public void testSearch() {
-        HomePage homePage = new HomePage(getDriver(), getWait());
+        HomePage homePage = new HomePage();
         SearchResultPage searchResultPage = homePage.search("iphone");
 
         searchResultPage.pageDown();
@@ -27,7 +28,7 @@ public class SearchTest extends TestBase {
         searchResultPage.click(firstProduct);
         searchResultPage.switchNextTab();
 
-        ProductPage productPage = new ProductPage(getDriver(), getWait());
+        ProductPage productPage = new ProductPage();
         String pageProductTitle = productPage.getProductTitle();
 
         assertThat(pageProductTitle, is(equalTo(productNames.get(0))));
