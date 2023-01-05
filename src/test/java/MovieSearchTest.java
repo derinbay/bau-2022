@@ -10,7 +10,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-public class SearchTest extends TestBase {
+public class MovieSearchTest extends TestBase {
 
     @Test
     public void testSearch() {

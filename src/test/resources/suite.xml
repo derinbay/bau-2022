@@ -3,7 +3,7 @@
     <test name="Login Tests" >
         <classes>
             <class name="LoginTest" />
-            <class name="SearchTest" />
+            <class name="MovieSearchTest" />
         </classes>
     </test>
 </suite>

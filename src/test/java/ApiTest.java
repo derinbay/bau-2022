@@ -1,10 +1,11 @@
 import io.restassured.RestAssured;
-import io.restassured.response.ValidatableResponse;
+import io.restassured.response.Response;
 import models.Movie;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import static org.hamcrest.Matchers.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
@@ -30,5 +31,26 @@ public class ApiTest {
         assertEquals(movie.getYear(), "2001");
         assertEquals(movie.getReleased(), "19 Dec 2001");
     }
+
+    @Test
+    public void testOmdbSearch() {
+        RestAssured.baseURI = "http://www.omdbapi.com";
+        Response movie = RestAssured
+                .given()
+                .param("s", "harry+potter")
+                .param("page", "1")
+                .param("apikey", "28ca4305")
+                .get("/");
+
+
+        assertTrue(true);
+        //assertEquals(movie.getYear(), "2001");
+        //assertEquals(movie.getReleased(), "19 Dec 2001");
+    }
+
+
+    //harry potter araması yapalım
+    //dönen filmlerden ilk sayfada 2004 yılında olanın adının "Harry Potter and the Prisoner of Azkaban" olduğunu kontrol et
+    //gerekli görülen kontrolleri yapalım
 }
 
